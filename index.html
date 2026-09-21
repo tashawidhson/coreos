@@ -242,6 +242,13 @@
   .econ-callout .ec-tag::before{ content:''; width:20px; height:2px; background:var(--green); display:inline-block; }
   .econ-callout h3{ font-size:22px; font-weight:700; color:var(--white); margin-bottom:14px; line-height:1.3; }
   .econ-callout p{ font-size:15px; color:#c7d2db; line-height:1.65; margin-bottom:18px; }
+  .ec-strong{
+    font-size:16px; font-weight:600; color:var(--white); line-height:1.6;
+    padding:16px 20px; background:rgba(137,200,67,.1); border-left:3px solid var(--green);
+    border-radius:2px; margin-bottom:22px;
+  }
+  .ec-strong span{ color:var(--green); font-weight:700; }
+  .econ-flow .ef-step.ef-key{ background:var(--green); color:var(--navy-dark); border-color:var(--green); font-weight:700; }
   .econ-flow{ display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-top:6px; }
   .econ-flow .ef-step{
     font-size:13px; font-weight:600; color:var(--white); background:rgba(137,200,67,.12);
@@ -502,10 +509,11 @@
       <div class="ec-tag">Built for AI Economics From Day One</div>
       <h3>A modern CRM shouldn't just support Agents.</h3>
       <p>It should provide the data, telemetry, governance and instrumentation required to understand what Agents consume — and what they produce. That's not a layer you bolt on after go-live; it's part of the foundation itself.</p>
+      <div class="ec-strong">Every token, every API call, every workflow an Agent touches runs through data CoreOS already owns — so consumption isn't estimated after the fact. <span>It's tracked at the source.</span></div>
       <div class="econ-flow">
         <span class="ef-step">CoreOS provides the foundation</span>
         <span class="ef-arrow">→</span>
-        <span class="ef-step">AgentOS manages consumption</span>
+        <span class="ef-step ef-key">AgentOS manages consumption</span>
         <span class="ef-arrow">→</span>
         <span class="ef-step">OutcomesOS verifies the value</span>
       </div>
@@ -623,6 +631,16 @@
       if(i >= stackItems.length - 1){ clearInterval(interval); btn.disabled = false; }
     }, 900);
   });
+
+  // Report page height to a parent window (WordPress iframe embed), so the
+  // iframe can auto-resize instead of using a fixed height with a scrollbar.
+  function reportHeight(){
+    const h = document.documentElement.scrollHeight;
+    window.parent.postMessage({ cxFrameHeight: h }, '*');
+  }
+  window.addEventListener('load', reportHeight);
+  window.addEventListener('resize', reportHeight);
+  new ResizeObserver(reportHeight).observe(document.body);
 </script>
 
 </body>
